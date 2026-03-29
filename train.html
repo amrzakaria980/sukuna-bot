@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUKUNA BOT | القوة والسيطرة</title>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #050505;
+            --sukuna-red: #bc002d;
+            --glow-red: #ff003c;
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --text-gray: #b0b0b0;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Cursed Background Particles --- */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
+        }
+
+        .cursed-aura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(188, 0, 45, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--sukuna-red);
+            text-shadow: 0 0 10px var(--glow-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--glow-red);
+            box-shadow: 0 0 10px var(--glow-red);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--glow-red);
+            text-shadow: 0 0 8px var(--glow-red);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-trigger {
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .menu-trigger:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 10px var(--glow-red));
+        }
+
+        /* --- Side Menu --- */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1100;
+            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            padding: 4rem 2rem;
+            border-left: 2px solid var(--sukuna-red);
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .side-menu ul {
+            list-style: none;
+        }
+
+        .side-menu li {
+            margin-bottom: 2rem;
+        }
+
+        .side-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            padding-right: 15px;
+            color: var(--glow-red);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- Sections General --- */
+        section {
+            padding: 100px 10%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 3rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+        }
+
+        .glitch:hover::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2), rgba(188, 0, 45, 0.1));
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(188, 0, 45, 0.8);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--sukuna-red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            color: var(--text-gray);
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 900;
+            transition: var(--transition);
+            text-transform: uppercase;
+            cursor: pointer;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--sukuna-red);
+            color: #fff;
+            box-shadow: 0 0 15px var(--sukuna-red);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px var(--glow-red);
+            background: var(--glow-red);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--sukuna-red);
+            color: #fff;
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(188, 0, 45, 0.2);
+            box-shadow: 0 0 15px rgba(188, 0, 45, 0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(188, 0, 45, 0.3);
+            min-width: 150px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--glow-red);
+        }
+
+        /* --- Interactive Grid --- */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-item {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--sukuna-red);
+            box-shadow: 0 10px 30px rgba(188, 0, 45, 0.3);
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(188, 0, 45, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .grid-item:hover::before {
+            opacity: 1;
+        }
+
+        /* --- Checklist Styling --- */
+        .checklist {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(10, 10, 10, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border-right: 5px solid var(--sukuna-red);
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .check-item i {
+            color: var(--glow-red);
+            text-shadow: 0 0 10px var(--glow-red);
+        }
+
+        /* --- Privacy Panel --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* --- Law Section --- */
+        .law-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .law-box {
+            background: #0a0a0a;
+            padding: 2rem;
+            border: 1px solid #1a1a1a;
+            border-top: 4px solid var(--sukuna-red);
+        }
+
+        .law-box h3 {
+            margin-bottom: 1.5rem;
+            color: var(--glow-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .law-list {
+            list-style: none;
+        }
+
+        .law-list li {
+            margin-bottom: 0.8rem;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+
+        .law-list li::before {
+            content: '💀';
+            position: absolute;
+            right: 0;
+            font-size: 0.8rem;
+        }
+
+        /* --- Developer Card --- */
+        .dev-card {
+            background: linear-gradient(135deg, #1a0000 0%, #050505 100%);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--sukuna-red);
+            box-shadow: 0 0 40px rgba(188, 0, 45, 0.2);
+            text-align: center;
+        }
+
+        .dev-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #000;
+            padding: 4rem 10% 2rem;
+            border-top: 2px solid var(--sukuna-red);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        /* --- Animations --- */
+        @keyframes glitch-anim {
+            0% { clip: rect(20px, 9999px, 10px, 0); }
+            20% { clip: rect(80px, 9999px, 30px, 0); }
+            40% { clip: rect(10px, 9999px, 60px, 0); }
+            60% { clip: rect(50px, 9999px, 20px, 0); }
+            80% { clip: rect(30px, 9999px, 80px, 0); }
+            100% { clip: rect(70px, 9999px, 40px, 0); }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px var(--sukuna-red); }
+            50% { box-shadow: 0 0 25px var(--glow-red); }
+            100% { box-shadow: 0 0 10px var(--sukuna-red); }
+        }
+
+        .pulse-effect {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .law-container { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+    <div class="cursed-aura"></div>
+
+    <div class="side-menu" id="sideMenu">
+        <div class="close-menu" onclick="toggleMenu()">✖</div>
+        <ul>
+            <li><a href="#hero">الرئيسية</a></li>
+            <li><a href="#about-grid">ماذا تريد أن تعرف</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#laws">قوانين البوت</a></li>
+            <li><a href="#dev">المطور</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+    </div>
+
+    <nav>
+        <div class="menu-trigger" onclick="toggleMenu()">☠️</div>
+        <ul class="nav-links">
+            <li><a href="#contact">تواصل</a></li>
+            <li><a href="#features">المميزات</a></li>
+            <li><a href="#about">تعريف البوت</a></li>
+            <li><a href="#about-grid">ماذا تريد أن تعرف</a></li>
+            <li><a href="#hero">الرئيسية</a></li>
+        </ul>
+        <a href="#" class="nav-logo">🍷 SUKUNA BOT</a>
+    </nav>
+
+    <section class="hero" id="hero">
+        <h1 class="glitch" data-text="🍷 Sukuna Bot">🍷 Sukuna Bot</h1>
+        <h2>حل احترافي مرعب لإدارة نقاباتك</h2>
+        <p>بوت ذكي متخصص في إدارة المجموعات والنقابات بسهولة، مع نظام حماية متقدم وأوامر قوية تجعل إدارتك أسرع وأكثر سيطرة.</p>
+
+        <div class="btn-container">
+            <a href="https://wa.me/201012821832" class="btn btn-primary pulse-effect">جرب البوت الآن</a>
+            <a href="#about" class="btn btn-secondary">اقرأ المزيد</a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number">1000+</span>
+                <span>مستخدم نشط</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">+30</span>
+                <span>مجموعة</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">24/7</span>
+                <span>دعم فني</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-grid">
+        <h2 class="section-title">ماذا تريد أن تعرف؟</h2>
+        <div class="interactive-grid">
+            <div class="grid-item">تعريف البوت</div>
+            <div class="grid-item">مميزات البوت</div>
+            <div class="grid-item">شروط الدخول</div>
+            <div class="grid-item">اتصل بنا</div>
+            <div class="grid-item">المؤسسين</div>
+            <div class="grid-item">قوانين البوت</div>
+            <div class="grid-item">لجنة العلاقات العامة</div>
+            <div class="grid-item">لجنة المراقبة</div>
+        </div>
+    </section>
+
+    <section id="requirements">
+        <h2 class="section-title">شروط الدخول</h2>
+        <div class="checklist">
+            <div class="check-item"><i class="fas fa-skull"></i> <span>دخول البوت مع مراقب + إعطاؤه إشراف</span></div>
+            <div class="check-item"><i class="fas fa-skull"></i> <span>دخول مسؤولي المجموعة للقناة الخاصة</span></div>
+            <div class="check-item"><i class="fas fa-skull"></i> <span>عدد الأعضاء لا يقل عن 30</span></div>
+            <div class="check-item"><i class="fas fa-skull"></i> <span>الالتزام الكامل بقوانين البوت</span></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="glass-panel">
+            <h2 style="color: var(--glow-red); margin-bottom: 1rem;">سياسة الخصوصية</h2>
+            <p>نحن نحترم خصوصيتك بشكل كامل. جميع المحادثات محمية، ولا يتم تخزين أي رسائل أو بيانات شخصية. البوت يعمل بشكل آمن دون الاحتفاظ بأي محتوى. جميع الحقوق محفوظة.</p>
+            <hr style="margin: 2rem 0; opacity: 0.1;">
+            <p>للاطلاع على القوانين التفصيلية وحالات الخروج والإنذارات، يرجى الانتقال إلى صفحة القوانين.</p>
+            <a href="#laws" class="btn btn-primary" style="margin-top: 1.5rem;">اذهب للقوانين</a>
+        </div>
+    </section>
+
+    <section id="laws">
+        <h2 class="section-title">قوانين البوت</h2>
+        <div class="law-container">
+            <div class="law-box">
+                <h3><i class="fas fa-fire"></i> خروج البوت مباشرة</h3>
+                <ul class="law-list">
+                    <li>سب أو قذف قوي</li>
+                    <li>ألفاظ بذيئة أو إساءات</li>
+                    <li>محتوى إباحي (صور/فيديو/ستيكرات)</li>
+                    <li>طرد مراقب البوت</li>
+                    <li>إضافة بوت آخر</li>
+                    <li>حذف رسائل البوت الجماعية</li>
+                </ul>
+            </div>
+            <div class="law-box">
+                <h3><i class="fas fa-exclamation-triangle"></i> نظام الإنذارات</h3>
+                <ul class="law-list">
+                    <li>سب على سبيل المزاح</li>
+                    <li>السخرية من الأعضاء</li>
+                    <li>سبام أوامر</li>
+                    <li>إزالة صلاحيات المراقب</li>
+                </ul>
+            </div>
+        </div>
+        <div class="glass-panel" style="margin-top: 2rem; padding: 1.5rem;">
+            <p>⚖️ <strong>الطعن:</strong> يمكن التواصل مع الدعم لإعادة التقييم مع تقديم تفاصيل واضحة</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">عن البوت</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Sukuna Bot هو بوت واتساب احترافي لإدارة النقابات والمجموعات، يوفر نظام حماية متقدم وأدوات قوية للإدارة.</p>
+            <div class="interactive-grid" style="margin-bottom: 3rem;">
+                <div class="grid-item">نظام ذكي وسهل</div>
+                <div class="grid-item">حماية متقدمة</div>
+                <div class="grid-item">سرعة فائقة</div>
+            </div>
+            <div class="btn-container" style="justify-content: center; flex-wrap: wrap;">
+                <a href="https://whatsapp.com/channel/0029VbBplfy89incZErcp63V" class="btn btn-secondary">قناة واتساب</a>
+                <a href="https://chat.whatsapp.com/EQ5duXCGbwKBVA6TP2h77U" class="btn btn-secondary">مجموعة التجربة</a>
+                <a href="https://wa.me/201012821832" class="btn btn-primary">إضافة البوت</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2 class="section-title">المميزات</h2>
+        <div class="interactive-grid">
+            <div class="grid-item">إدارة الأعضاء</div>
+            <div class="grid-item">تحديثات مستمرة</div>
+            <div class="grid-item">الحماية والأمان</div>
+            <div class="grid-item">نظام الرسائل</div>
+            <div class="grid-item">تخصيص الردود</div>
+            <div class="grid-item">إدارة كاملة</div>
+            <div class="grid-item">سرعة فائقة 24/7</div>
+            <div class="grid-item">ميزات ترفيهية</div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; font-weight: 900; color: var(--glow-red);">🔥 وأكثر من ذلك بكثير</p>
+    </section>
+
+    <section id="dev">
+        <h2 class="section-title">نبذة عن المطور</h2>
+        <div class="dev-card">
+            <div class="dev-info">
+                <div>
+                    <p style="color: var(--text-gray);">اللقب</p>
+                    <h3>سوكونا</h3>
+                </div>
+                <div>
+                    <p style="color: var(--text-gray);">العمر</p>
+                    <h3>17</h3>
+                </div>
+                <div>
+                    <p style="color: var(--text-gray);">الإقامة</p>
+                    <h3>مصر</h3>
+                </div>
+            </div>
+            <p>مطور متخصص في إنشاء وتطوير بوتات واتساب باحترافية عالية، مع خبرة في تصميم مواقع الويب وبناء أنظمة ذكية متقدمة لإدارة المجموعات والنقابات.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">تواصل معنا</h2>
+        <div class="interactive-grid">
+            <a href="https://wa.me/201012821832" class="grid-item" style="text-decoration: none; color: inherit;">تواصل مباشر واتساب</a>
+            <a href="https://wa.me/201012821832" class="grid-item" style="text-decoration: none; color: inherit;">إضافة البوت</a>
+            <div class="grid-item">دعم 24/7</div>
+            <div class="grid-item">دليل شامل</div>
+        </div>
+    </section>
+
+    <footer>
+        <span class="footer-logo">🍷 SUKUNA BOT</span>
+        <p>Sukuna Bot - WhatsApp Bot</p>
+        <p style="color: var(--text-gray); font-size: 0.9rem;">بوت واتساب متخصص في إدارة النقابات | تم الإنشاء 2023</p>
+        <p class="copyright">© 2026 جميع الحقوق محفوظة لـ سوكونا</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles Background Configuration
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#bc002d" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#bc002d", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+            }
+        });
+
+        // Toggle Side Menu
+        function toggleMenu() {
+            document.getElementById('sideMenu').classList.toggle('active');
+        }
+
+        // Scroll Reveal Animations
+        ScrollReveal().reveal('.section-title', { delay: 200, origin: 'top', distance: '50px' });
+        ScrollReveal().reveal('.grid-item', { delay: 300, interval: 100, scale: 0.8 });
+        ScrollReveal().reveal('.glass-panel', { delay: 400, origin: 'bottom', distance: '50px' });
+        ScrollReveal().reveal('.law-box', { delay: 300, origin: 'right', distance: '100px', interval: 200 });
+
+        // Smooth Scroll for side menu
+        document.querySelectorAll('.side-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function() {
+                toggleMenu();
+            });
+        });
+    </script>
+</body>
+</html>
