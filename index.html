@@ -2,720 +2,845 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUKUNA BOT | القوة والسيطرة</title>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>𝐒𝐔𝐊𝐔𝐍𝐀 𝐁𝐎𝐓 | بوت النقابات الأسطوري</title>
+    <!-- Font Awesome 6 (Free Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Arabic + Aggressive Modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
-
-        :root {
-            --bg-dark: #050505;
-            --sukuna-red: #bc002d;
-            --glow-red: #ff003c;
-            --glass-bg: rgba(20, 20, 20, 0.7);
-            --text-gray: #b0b0b0;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #fff;
+            background-color: #050505;
+            font-family: 'Cairo', 'Space Grotesk', sans-serif;
+            color: #eaeef2;
             overflow-x: hidden;
-            line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
-        /* --- Cursed Background Particles --- */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #1a0505 0%, #050505 100%);
-        }
-
-        .cursed-aura {
+        /* Canvas Particle Background (Cursed Energy Aura) */
+        #cursed-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-            opacity: 0.05;
             z-index: 0;
+            opacity: 0.5;
         }
 
-        /* --- Navbar --- */
-        nav {
+        /* Main Content Layer */
+        .main-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a30000;
+            border-radius: 10px;
+            box-shadow: inset 0 0 6px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Glowing & Glassmorphism */
+        .glass-panel, .navbar, .card, .rule-card, .privacy-panel, .feature-card, .contact-card, .stat-card {
+            background: rgba(10, 10, 15, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(220, 20, 60, 0.35);
+            border-radius: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8), 0 0 12px rgba(220, 20, 60, 0.3);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Navbar Sticky + Glow */
+        .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(188, 0, 45, 0.3);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            padding: 1rem 5%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6), 0 0 12px rgba(220,20,60,0.3);
         }
 
-        .nav-logo {
-            font-size: 1.8rem;
+        .logo-area {
+            font-size: 2rem;
             font-weight: 900;
-            color: var(--sukuna-red);
-            text-shadow: 0 0 10px var(--glow-red);
-            text-decoration: none;
+            letter-spacing: -1px;
+            text-shadow: 0 0 8px crimson;
         }
 
+        /* Desktop Navigation */
         .nav-links {
             display: flex;
-            list-style: none;
             gap: 2rem;
-            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links li {
+            position: relative;
         }
 
         .nav-links a {
-            color: #fff;
+            color: #f0f0f0;
             text-decoration: none;
             font-weight: 700;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--glow-red);
-            box-shadow: 0 0 10px var(--glow-red);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--glow-red);
-            text-shadow: 0 0 8px var(--glow-red);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-trigger {
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: var(--transition);
-        }
-
-        .menu-trigger:hover {
-            transform: scale(1.2) rotate(10deg);
-            filter: drop-shadow(0 0 10px var(--glow-red));
-        }
-
-        /* --- Side Menu --- */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 300px;
-            height: 100vh;
-            background: rgba(10, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1100;
-            transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            padding: 4rem 2rem;
-            border-left: 2px solid var(--sukuna-red);
-        }
-
-        .side-menu.active {
-            right: 0;
-        }
-
-        .side-menu ul {
-            list-style: none;
-        }
-
-        .side-menu li {
-            margin-bottom: 2rem;
-        }
-
-        .side-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .side-menu a:hover {
-            padding-right: 15px;
-            color: var(--glow-red);
-        }
-
-        .close-menu {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
-        /* --- Sections General --- */
-        section {
-            padding: 100px 10%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 3rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .glitch {
-            position: relative;
+            font-size: 1.1rem;
+            transition: 0.2s;
+            padding: 6px 0;
             display: inline-block;
         }
 
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
+        /* Glowing underline hover */
+        .nav-links a::after {
+            content: '';
             position: absolute;
+            bottom: -4px;
+            right: 0;
+            width: 0%;
+            height: 2.5px;
+            background: linear-gradient(90deg, #ff2a2a, #b01010);
+            border-radius: 4px;
+            transition: width 0.25s ease;
+            box-shadow: 0 0 8px red;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: #ff4d4d;
+            text-shadow: 0 0 4px #ff0000;
+        }
+
+        /* Dropdown Menu for المزيد */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid #b3002d;
+            border-radius: 16px;
+            width: 180px;
+            padding: 0.8rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.25s;
+            z-index: 100;
+            box-shadow: 0 8px 20px black;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+        .dropdown-menu li {
+            list-style: none;
+            padding: 0.5rem 1.2rem;
+        }
+        .dropdown-menu li a {
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        /* Mobile Sidebar (off-canvas) */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #ff2a2a;
+            z-index: 1100;
+        }
+
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 280px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 2px solid #b81c1c;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            z-index: 1500;
+            transition: right 0.3s ease;
+            padding: 80px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .mobile-sidebar.active {
+            right: 0;
+        }
+        .mobile-sidebar a {
+            color: #f0f0f0;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(220,20,60,0.4);
+            transition: 0.2s;
+        }
+        .mobile-sidebar a:hover {
+            color: #ff4d4d;
+            padding-right: 10px;
+            border-bottom-color: #ff2a2a;
+        }
+        .sidebar-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-dark);
-        }
-
-        .glitch:hover::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.2), rgba(188, 0, 45, 0.1));
-        }
-
-        .hero h1 {
-            font-size: 5rem;
-            margin-bottom: 1rem;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(188, 0, 45, 0.8);
-        }
-
-        .hero h2 {
-            font-size: 1.5rem;
-            color: var(--sukuna-red);
-            margin-bottom: 1.5rem;
-            letter-spacing: 3px;
-        }
-
-        .hero p {
-            max-width: 700px;
-            margin-bottom: 2.5rem;
-            font-size: 1.2rem;
-            color: var(--text-gray);
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .btn {
-            padding: 12px 35px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 900;
-            transition: var(--transition);
-            text-transform: uppercase;
-            cursor: pointer;
-            display: inline-block;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--sukuna-red);
-            color: #fff;
-            box-shadow: 0 0 15px var(--sukuna-red);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 30px var(--glow-red);
-            background: var(--glow-red);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--sukuna-red);
-            color: #fff;
-            background: transparent;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(188, 0, 45, 0.2);
-            box-shadow: 0 0 15px rgba(188, 0, 45, 0.4);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 3rem;
-            margin-top: 2rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            background: var(--glass-bg);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(188, 0, 45, 0.3);
-            min-width: 150px;
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--glow-red);
-        }
-
-        /* --- Interactive Grid --- */
-        .interactive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .grid-item {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            text-align: center;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .grid-item:hover {
-            transform: translateY(-10px);
-            border-color: var(--sukuna-red);
-            box-shadow: 0 10px 30px rgba(188, 0, 45, 0.3);
-        }
-
-        .grid-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(188, 0, 45, 0.1) 0%, transparent 70%);
+            background: rgba(0,0,0,0.7);
+            z-index: 1400;
+            visibility: hidden;
             opacity: 0;
-            transition: 0.5s;
+            transition: 0.2s;
         }
-
-        .grid-item:hover::before {
+        .sidebar-overlay.active {
+            visibility: visible;
             opacity: 1;
         }
 
-        /* --- Checklist Styling --- */
-        .checklist {
-            max-width: 800px;
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #b81c1c, #7a0a0a);
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 0 10px rgba(220,20,60,0.5);
+            font-family: inherit;
+        }
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #ff2a2a, 0 0 30px #a00000;
+            background: linear-gradient(135deg, #d42c2c, #8f0f0f);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #b81c1c;
+            padding: 10px 28px;
+            border-radius: 50px;
+            color: #ffb3b3;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            transform: scale(1.05);
+            background: #b81c1c20;
+            border-color: #ff4d4d;
+            box-shadow: 0 0 16px red;
+            color: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5% 80px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: rgba(10, 10, 10, 0.6);
-            padding: 2rem;
-            border-radius: 15px;
-            border-right: 5px solid var(--sukuna-red);
         }
-
-        .check-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+        .hero-section {
+            padding-top: 140px;
         }
-
-        .check-item i {
-            color: var(--glow-red);
-            text-shadow: 0 0 10px var(--glow-red);
+        h1, h2, .glitch-text {
+            font-weight: 900;
+            text-transform: uppercase;
         }
-
-        /* --- Privacy Panel --- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* --- Law Section --- */
-        .law-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .law-box {
-            background: #0a0a0a;
-            padding: 2rem;
-            border: 1px solid #1a1a1a;
-            border-top: 4px solid var(--sukuna-red);
-        }
-
-        .law-box h3 {
-            margin-bottom: 1.5rem;
-            color: var(--glow-red);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .law-list {
-            list-style: none;
-        }
-
-        .law-list li {
-            margin-bottom: 0.8rem;
-            padding-right: 1.5rem;
-            position: relative;
-        }
-
-        .law-list li::before {
-            content: '💀';
-            position: absolute;
-            right: 0;
-            font-size: 0.8rem;
-        }
-
-        /* --- Developer Card --- */
-        .dev-card {
-            background: linear-gradient(135deg, #1a0000 0%, #050505 100%);
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid var(--sukuna-red);
-            box-shadow: 0 0 40px rgba(188, 0, 45, 0.2);
-            text-align: center;
-        }
-
-        .dev-info {
-            display: flex;
-            justify-content: space-around;
+        h2 {
+            font-size: 2.6rem;
             margin-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 6px #ff0000;
+        }
+        .glitch-effect {
+            animation: glitch 0.8s infinite alternate;
+        }
+        @keyframes glitch {
+            0% { text-shadow: -2px 0 red, 2px 0 darkred; opacity: 1; }
+            100% { text-shadow: 2px 0 red, -2px 0 #800000; }
         }
 
-        /* --- Footer --- */
-        footer {
-            background: #000;
-            padding: 4rem 10% 2rem;
-            border-top: 2px solid var(--sukuna-red);
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .copyright {
+        /* Grid Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.8rem;
             margin-top: 2rem;
-            color: #555;
+        }
+        .interactive-card {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: 1px solid #ad1f2e;
+            transition: 0.25s;
+        }
+        .interactive-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: #1f0a0a;
+            box-shadow: 0 0 25px #ff2a2a, 0 10px 25px black;
+            border-color: #ff5555;
+        }
+
+        /* Static feature cards (no click action) */
+        .feature-static {
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border: 1px solid #ad1f2e;
+            transition: 0.25s;
+            cursor: default;
+        }
+        .feature-static:hover {
+            transform: translateY(-5px);
+            background: #1a0a0a;
+            box-shadow: 0 0 15px rgba(220,20,60,0.4);
+        }
+
+        /* Checklist */
+        .checklist {
+            background: rgba(0,0,0,0.65);
+            border-radius: 32px;
+            padding: 2rem;
+            border-right: 5px solid #e31b23;
+        }
+        .checklist li {
+            margin: 1rem 0;
+            list-style: none;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .checklist i {
+            color: #e31b23;
+            font-size: 1.5rem;
+            text-shadow: 0 0 8px red;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .stat-card {
+            flex: 1;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(12px);
+        }
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #ff3a3a;
+        }
+
+        .feature-highlights {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .badge {
+            background: #2c0a0a;
+            border-radius: 40px;
+            padding: 0.5rem 1.5rem;
+            font-weight: bold;
+        }
+
+        /* footer */
+        footer {
+            background: #030101e6;
+            backdrop-filter: blur(12px);
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #a51414;
             font-size: 0.9rem;
         }
-
-        /* --- Animations --- */
-        @keyframes glitch-anim {
-            0% { clip: rect(20px, 9999px, 10px, 0); }
-            20% { clip: rect(80px, 9999px, 30px, 0); }
-            40% { clip: rect(10px, 9999px, 60px, 0); }
-            60% { clip: rect(50px, 9999px, 20px, 0); }
-            80% { clip: rect(30px, 9999px, 80px, 0); }
-            100% { clip: rect(70px, 9999px, 40px, 0); }
+        /* Developer section */
+        .dev-section {
+            background: linear-gradient(145deg, #0a0202, #050101);
+            border: 1px solid #a51c1c;
+            border-radius: 32px;
+            padding: 1.8rem;
+            margin: 2rem auto;
+            text-align: center;
         }
 
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px var(--sukuna-red); }
-            50% { box-shadow: 0 0 25px var(--glow-red); }
-            100% { box-shadow: 0 0 10px var(--sukuna-red); }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .stats-row {
+                flex-direction: column;
+            }
+            h2 {
+                font-size: 2rem;
+            }
         }
 
-        .pulse-effect {
-            animation: pulse-glow 2s infinite;
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 3rem; }
-            .law-container { grid-template-columns: 1fr; }
-            .hero-stats { flex-direction: column; gap: 1rem; }
+        button, .interactive-card, .btn-primary, .btn-outline {
+            cursor: pointer;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .glow-text {
+            text-shadow: 0 0 5px crimson;
+        }
+        .rule-section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+            gap: 2rem;
+        }
+        .rule-card {
+            padding: 1.8rem;
+        }
+        .rule-card ul {
+            margin-top: 1rem;
+            padding-right: 1.2rem;
+        }
+        .rule-card li {
+            margin: 0.8rem 0;
+        }
+        .modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #0f0f12;
+            padding: 2rem;
+            border-radius: 32px;
+            width: 90%;
+            max-width: 400px;
+            border: 2px solid red;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
-    <div class="cursed-aura"></div>
-
-    <div class="side-menu" id="sideMenu">
-        <div class="close-menu" onclick="toggleMenu()">✖</div>
-        <ul>
+<canvas id="cursed-canvas"></canvas>
+<div class="main-content">
+    <!-- Sticky Navbar -->
+    <nav class="navbar">
+        <div class="logo-area">🍷 𝐒𝐔𝐊𝐔𝐍𝐀</div>
+        <div class="hamburger" id="hamburger"><i class="fas fa-skull"></i></div>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#hero">الرئيسية</a></li>
-            <li><a href="#about-grid">ماذا تريد أن تعرف</a></li>
+            <li><a href="#knowGrid">ماذا تريد أن تعرف</a></li>
+            <li><a href="#aboutBot">تعريف البوت</a></li>
             <li><a href="#features">المميزات</a></li>
-            <li><a href="#laws">قوانين البوت</a></li>
-            <li><a href="#dev">المطور</a></li>
-            <li><a href="#contact">تواصل معنا</a></li>
-        </ul>
-    </div>
-
-    <nav>
-        <div class="menu-trigger" onclick="toggleMenu()">☠️</div>
-        <ul class="nav-links">
             <li><a href="#contact">تواصل</a></li>
-            <li><a href="#features">المميزات</a></li>
-            <li><a href="#about">تعريف البوت</a></li>
-            <li><a href="#about-grid">ماذا تريد أن تعرف</a></li>
-            <li><a href="#hero">الرئيسية</a></li>
+            <li class="dropdown">
+                <a href="#">المزيد ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#terms">شروط الدخول</a></li>
+                    <li><a href="#privacy">سياسة الخصوصية</a></li>
+                    <li><a href="#rules">قوانين البوت</a></li>
+                </ul>
+            </li>
         </ul>
-        <a href="#" class="nav-logo">🍷 SUKUNA BOT</a>
     </nav>
 
-    <section class="hero" id="hero">
-        <h1 class="glitch" data-text="🍷 Sukuna Bot">🍷 Sukuna Bot</h1>
-        <h2>حل احترافي مرعب لإدارة نقاباتك</h2>
-        <p>بوت ذكي متخصص في إدارة المجموعات والنقابات بسهولة، مع نظام حماية متقدم وأوامر قوية تجعل إدارتك أسرع وأكثر سيطرة.</p>
+    <!-- Mobile Sidebar (off-canvas) -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <a href="#hero">الرئيسية</a>
+        <a href="#knowGrid">ماذا تريد أن تعرف</a>
+        <a href="#aboutBot">تعريف البوت</a>
+        <a href="#features">المميزات</a>
+        <a href="#contact">تواصل</a>
+        <a href="#terms">شروط الدخول</a>
+        <a href="#privacy">سياسة الخصوصية</a>
+        <a href="#rules">قوانين البوت</a>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <div class="btn-container">
-            <a href="https://wa.me/201012821832" class="btn btn-primary pulse-effect">جرب البوت الآن</a>
-            <a href="#about" class="btn btn-secondary">اقرأ المزيد</a>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section reveal">
+        <div style="text-align: center;">
+            <h1 class="glitch-effect" style="font-size: 4rem; letter-spacing: 3px;">🍷 Sukuna Bot</h1>
+            <p style="font-size: 1.7rem; font-weight: bold; color: #ffb3b3;">حل احترافي مرعب لإدارة نقاباتك على واتساب</p>
+            <p style="max-width: 700px; margin: 1rem auto; font-size: 1.2rem;">بوت ذكي متخصص في إدارة المجموعات والنقابات بسهولة، مع نظام حماية متقدم وأوامر قوية تجعل إدارتك أسرع وأكثر سيطرة.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" id="trialBtn">جرب البوت الآن</button>
+                <button class="btn-outline" id="readMoreBtn">اقرأ المزيد</button>
+            </div>
+            <!-- Stats Cards -->
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-number"><span class="count-num" data-target="1000">0</span>+</div><div>مستخدم نشط</div></div>
+                <div class="stat-card"><div class="stat-number"><span class="count-num" data-target="30">0</span>+</div><div>مجموعة</div></div>
+                <div class="stat-card"><div class="stat-number"><span class="count-num" data-target="24">0</span><span>/7</span></div><div>دعم فني</div></div>
+            </div>
+            <div class="feature-highlights">
+                <span class="badge"><i class="fas fa-bolt"></i> سهل الاستخدام</span>
+                <span class="badge"><i class="fas fa-tachometer-alt"></i> سريع وفعال</span>
+                <span class="badge"><i class="fas fa-shield-alt"></i> آمن وموثوق</span>
+            </div>
+            <button class="btn-primary" id="ctaStartBtn">ابدأ الآن - مجاني تماماً <i class="fas fa-arrow-left"></i></button>
         </div>
+    </section>
 
-        <div class="hero-stats">
-            <div class="stat-card">
-                <span class="stat-number">1000+</span>
-                <span>مستخدم نشط</span>
+    <!-- ماذا تريد أن تعرف؟ (Grid Cards) -->
+    <section id="knowGrid" class="reveal">
+        <h2 class="glitch-text">ماذا تريد أن تعرف؟</h2>
+        <div class="cards-grid" id="knowledgeCards">
+            <div class="interactive-card" data-action="aboutBot">تعريف البوت</div>
+            <div class="interactive-card" data-action="features">مميزات البوت</div>
+            <div class="interactive-card" data-action="terms">شروط الدخول</div>
+            <div class="interactive-card" data-action="contact">اتصل بنا</div>
+            <div class="interactive-card" data-action="founders">المؤسسين</div>
+            <div class="interactive-card" data-action="rules">قوانين البوت</div>
+            <div class="interactive-card" data-action="pr">لجنة العلاقات العامة</div>
+            <div class="interactive-card" data-action="monitor">لجنة المراقبة</div>
+        </div>
+    </section>
+
+    <!-- شروط الدخول -->
+    <section id="terms" class="reveal">
+        <h2>شروط الدخول</h2>
+        <div class="checklist glass-panel">
+            <ul>
+                <li><i class="fas fa-dragon"></i> دخول البوت مع مراقب + إعطاؤه إشراف</li>
+                <li><i class="fas fa-users"></i> دخول مسؤولي المجموعة للقناة الخاصة</li>
+                <li><i class="fas fa-chart-line"></i> عدد الأعضاء لا يقل عن 30</li>
+                <li><i class="fas fa-gavel"></i> الالتزام الكامل بقوانين البوت</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- سياسة الخصوصية -->
+    <section id="privacy" class="reveal">
+        <h2>سياسة الخصوصية</h2>
+        <div class="glass-panel privacy-panel" style="padding: 2rem;">
+            <p style="font-size: 1.2rem;">نحن نحترم خصوصيتك بشكل كامل. جميع المحادثات محمية، ولا يتم تخزين أي رسائل أو بيانات شخصية. البوت يعمل بشكل آمن دون الاحتفاظ بأي محتوى. جميع الحقوق محفوظة.</p>
+        </div>
+    </section>
+
+    <!-- IMPORTANT NOTICE -->
+    <section class="reveal" style="text-align: center;">
+        <div class="glass-panel" style="padding: 2rem;">
+            <p><i class="fas fa-exclamation-triangle" style="color: #ff4444;"></i> للاطلاع على القوانين التفصيلية وحالات الخروج والإنذارات، يرجى الانتقال إلى صفحة القوانين.</p>
+            <button id="goToRulesBtn" class="btn-primary" style="margin-top: 1rem;">اذهب للقوانين</button>
+        </div>
+    </section>
+
+    <!-- قوانين البوت (Rules) -->
+    <section id="rules" class="reveal">
+        <h2>قوانين البوت</h2>
+        <p style="margin-bottom: 2rem;">اطلع على جميع القوانين والعقوبات عند مخالفتها</p>
+        <div class="rule-section-grid">
+            <div class="rule-card"><i class="fas fa-fire" style="color:#ff3a3a;"></i> <strong>🔥 خروج البوت مباشرة:</strong>
+                <ul><li>سب أو قذف قوي</li><li>ألفاظ بذيئة أو إساءات</li><li>محتوى إباحي (صور/فيديو/ستيكرات)</li><li>طرد مراقب البوت</li><li>إضافة بوت آخر</li><li>حذف رسائل البوت الجماعية</li></ul>
             </div>
-            <div class="stat-card">
-                <span class="stat-number">+30</span>
-                <span>مجموعة</span>
+            <div class="rule-card"><i class="fas fa-exclamation-triangle"></i> <strong>⚠️ نظام الإنذارات:</strong>
+                <ul><li>سب على سبيل المزاح</li><li>السخرية من الأعضاء</li><li>سبام أوامر</li><li>إزالة صلاحيات المراقب</li></ul>
             </div>
-            <div class="stat-card">
-                <span class="stat-number">24/7</span>
-                <span>دعم فني</span>
+            <div class="rule-card"><i class="fas fa-clipboard-list"></i> <strong>📌 ملاحظات:</strong>
+                <ul><li>إنذاران = خطر</li><li>5 إنذارات = خروج فوري</li><li>يمكن رفع الإنذار عبر الدعم</li><li>الخروج المباشر نهائي</li><li>المراقب مسؤول عن التطبيق</li><li>الدعم متاح دائماً</li><li>المطور غير مسؤول عن سوء الاستخدام</li></ul>
+            </div>
+        </div>
+        <div class="glass-panel" style="margin-top: 2rem;"><i class="fas fa-balance-scale"></i> ⚖️ الطعن في القرار: يمكن التواصل مع الدعم لإعادة التقييم مع تقديم تفاصيل واضحة</div>
+    </section>
+
+    <!-- تعريف البوت -->
+    <section id="aboutBot" class="reveal">
+        <h2>تعريف البوت</h2>
+        <div class="glass-panel" style="padding: 2rem;">
+            <p style="font-size: 1.2rem;">Sukuna Bot هو بوت واتساب احترافي لإدارة النقابات والمجموعات، يوفر نظام حماية متقدم وأدوات قوية للإدارة.</p>
+            <div style="display: flex; gap: 2rem; justify-content: space-around; flex-wrap: wrap; margin: 2rem 0;">
+                <span><i class="fas fa-microchip"></i> نظام ذكي وسهل</span>
+                <span><i class="fas fa-lock"></i> حماية متقدمة</span>
+                <span><i class="fas fa-rocket"></i> سرعة فائقة</span>
+            </div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://whatsapp.com/channel/0029VbBplfy89incZErcp63V" target="_blank" class="btn-primary" style="background:#7a0a0a;">قناة واتساب</a>
+                <a href="https://chat.whatsapp.com/EQ5duXCGbwKBVA6TP2h77U" target="_blank" class="btn-primary">مجموعة التجربة</a>
+                <a href="https://wa.me/201012821832" target="_blank" class="btn-primary">إضافة البوت</a>
+                <a href="https://wa.me/201012821832" target="_blank" class="btn-outline">تواصل معنا</a>
             </div>
         </div>
     </section>
 
-    <section id="about-grid">
-        <h2 class="section-title">ماذا تريد أن تعرف؟</h2>
-        <div class="interactive-grid">
-            <div class="grid-item">تعريف البوت</div>
-            <div class="grid-item">مميزات البوت</div>
-            <div class="grid-item">شروط الدخول</div>
-            <div class="grid-item">اتصل بنا</div>
-            <div class="grid-item">المؤسسين</div>
-            <div class="grid-item">قوانين البوت</div>
-            <div class="grid-item">لجنة العلاقات العامة</div>
-            <div class="grid-item">لجنة المراقبة</div>
+    <!-- المميزات (Features Grid) - static, no clicks -->
+    <section id="features" class="reveal">
+        <h2>المميزات</h2>
+        <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px,1fr));" id="featuresGrid">
+            <div class="feature-static">إدارة الأعضاء</div>
+            <div class="feature-static">تحديثات مستمرة</div>
+            <div class="feature-static">الحماية والأمان</div>
+            <div class="feature-static">نظام الرسائل</div>
+            <div class="feature-static">تخصيص الردود</div>
+            <div class="feature-static">إدارة كاملة</div>
+            <div class="feature-static">سرعة فائقة 24/7</div>
+            <div class="feature-static">ميزات ترفيهية</div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 8px red;">🔥 وأكثر من ذلك بكثير</div>
+    </section>
+
+    <!-- Developer Info Section -->
+    <section class="reveal">
+        <div class="dev-section glass-panel">
+            <h3 style="font-size: 1.8rem; color:#ff5e5e;">👑 المطور: سوكونا (Sukuna)</h3>
+            <p style="margin: 0.8rem 0;"><i class="fas fa-user-ninja"></i> <strong>اللقب:</strong> سوكونا | <strong>العمر:</strong> 17 عامًا</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>الإقامة:</strong> مصر</p>
+            <p style="margin-top: 1rem;"><i class="fas fa-code"></i> متخصص في تطوير بوتات الواتساب وتصميم مواقع الويب، مهووس بالجودة والأمان. يجعل البوتات أكثر قوة وسيطرة.</p>
+            <div style="margin-top: 1rem;"><i class="fas fa-skull"></i> "عقاب المترددين سريع مثل الظل"</div>
         </div>
     </section>
 
-    <section id="requirements">
-        <h2 class="section-title">شروط الدخول</h2>
-        <div class="checklist">
-            <div class="check-item"><i class="fas fa-skull"></i> <span>دخول البوت مع مراقب + إعطاؤه إشراف</span></div>
-            <div class="check-item"><i class="fas fa-skull"></i> <span>دخول مسؤولي المجموعة للقناة الخاصة</span></div>
-            <div class="check-item"><i class="fas fa-skull"></i> <span>عدد الأعضاء لا يقل عن 30</span></div>
-            <div class="check-item"><i class="fas fa-skull"></i> <span>الالتزام الكامل بقوانين البوت</span></div>
+    <!-- تواصل معنا -->
+    <section id="contact" class="reveal">
+        <h2>تواصل معنا</h2>
+        <div class="glass-panel" style="padding: 2rem; display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: space-between;">
+            <div><i class="fab fa-whatsapp"></i> قناة واتساب</div>
+            <div><a href="https://chat.whatsapp.com/EQ5duXCGbwKBVA6TP2h77U" target="_blank" style="color:#ff7777;"><i class="fab fa-whatsapp"></i> مجموعة التجربة</a></div>
+            <div><a href="https://wa.me/201012821832" target="_blank" style="color:#ff7777;"><i class="fab fa-whatsapp"></i> تواصل مباشر واتساب</a></div>
+            <div><a href="https://wa.me/201012821832" target="_blank" style="color:#ff7777;"><i class="fas fa-robot"></i> إضافة البوت</a></div>
         </div>
-    </section>
-
-    <section>
-        <div class="glass-panel">
-            <h2 style="color: var(--glow-red); margin-bottom: 1rem;">سياسة الخصوصية</h2>
-            <p>نحن نحترم خصوصيتك بشكل كامل. جميع المحادثات محمية، ولا يتم تخزين أي رسائل أو بيانات شخصية. البوت يعمل بشكل آمن دون الاحتفاظ بأي محتوى. جميع الحقوق محفوظة.</p>
-            <hr style="margin: 2rem 0; opacity: 0.1;">
-            <p>للاطلاع على القوانين التفصيلية وحالات الخروج والإنذارات، يرجى الانتقال إلى صفحة القوانين.</p>
-            <a href="#laws" class="btn btn-primary" style="margin-top: 1.5rem;">اذهب للقوانين</a>
-        </div>
-    </section>
-
-    <section id="laws">
-        <h2 class="section-title">قوانين البوت</h2>
-        <div class="law-container">
-            <div class="law-box">
-                <h3><i class="fas fa-fire"></i> خروج البوت مباشرة</h3>
-                <ul class="law-list">
-                    <li>سب أو قذف قوي</li>
-                    <li>ألفاظ بذيئة أو إساءات</li>
-                    <li>محتوى إباحي (صور/فيديو/ستيكرات)</li>
-                    <li>طرد مراقب البوت</li>
-                    <li>إضافة بوت آخر</li>
-                    <li>حذف رسائل البوت الجماعية</li>
-                </ul>
-            </div>
-            <div class="law-box">
-                <h3><i class="fas fa-exclamation-triangle"></i> نظام الإنذارات</h3>
-                <ul class="law-list">
-                    <li>سب على سبيل المزاح</li>
-                    <li>السخرية من الأعضاء</li>
-                    <li>سبام أوامر</li>
-                    <li>إزالة صلاحيات المراقب</li>
-                </ul>
-            </div>
-        </div>
-        <div class="glass-panel" style="margin-top: 2rem; padding: 1.5rem;">
-            <p>⚖️ <strong>الطعن:</strong> يمكن التواصل مع الدعم لإعادة التقييم مع تقديم تفاصيل واضحة</p>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2 class="section-title">عن البوت</h2>
-        <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-            <p style="font-size: 1.3rem; margin-bottom: 2rem;">Sukuna Bot هو بوت واتساب احترافي لإدارة النقابات والمجموعات، يوفر نظام حماية متقدم وأدوات قوية للإدارة.</p>
-            <div class="interactive-grid" style="margin-bottom: 3rem;">
-                <div class="grid-item">نظام ذكي وسهل</div>
-                <div class="grid-item">حماية متقدمة</div>
-                <div class="grid-item">سرعة فائقة</div>
-            </div>
-            <div class="btn-container" style="justify-content: center; flex-wrap: wrap;">
-                <a href="https://whatsapp.com/channel/0029VbBplfy89incZErcp63V" class="btn btn-secondary">قناة واتساب</a>
-                <a href="https://chat.whatsapp.com/EQ5duXCGbwKBVA6TP2h77U" class="btn btn-secondary">مجموعة التجربة</a>
-                <a href="https://wa.me/201012821832" class="btn btn-primary">إضافة البوت</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="features">
-        <h2 class="section-title">المميزات</h2>
-        <div class="interactive-grid">
-            <div class="grid-item">إدارة الأعضاء</div>
-            <div class="grid-item">تحديثات مستمرة</div>
-            <div class="grid-item">الحماية والأمان</div>
-            <div class="grid-item">نظام الرسائل</div>
-            <div class="grid-item">تخصيص الردود</div>
-            <div class="grid-item">إدارة كاملة</div>
-            <div class="grid-item">سرعة فائقة 24/7</div>
-            <div class="grid-item">ميزات ترفيهية</div>
-        </div>
-        <p style="text-align: center; margin-top: 2rem; font-weight: 900; color: var(--glow-red);">🔥 وأكثر من ذلك بكثير</p>
-    </section>
-
-    <section id="dev">
-        <h2 class="section-title">نبذة عن المطور</h2>
-        <div class="dev-card">
-            <div class="dev-info">
-                <div>
-                    <p style="color: var(--text-gray);">اللقب</p>
-                    <h3>سوكونا</h3>
-                </div>
-                <div>
-                    <p style="color: var(--text-gray);">العمر</p>
-                    <h3>17</h3>
-                </div>
-                <div>
-                    <p style="color: var(--text-gray);">الإقامة</p>
-                    <h3>مصر</h3>
-                </div>
-            </div>
-            <p>مطور متخصص في إنشاء وتطوير بوتات واتساب باحترافية عالية، مع خبرة في تصميم مواقع الويب وبناء أنظمة ذكية متقدمة لإدارة المجموعات والنقابات.</p>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2 class="section-title">تواصل معنا</h2>
-        <div class="interactive-grid">
-            <a href="https://wa.me/201012821832" class="grid-item" style="text-decoration: none; color: inherit;">تواصل مباشر واتساب</a>
-            <a href="https://wa.me/201012821832" class="grid-item" style="text-decoration: none; color: inherit;">إضافة البوت</a>
-            <div class="grid-item">دعم 24/7</div>
-            <div class="grid-item">دليل شامل</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2rem; justify-content: center;">
+            <span class="badge">✅ دعم 24/7</span>
+            <span class="badge">⚡ إضافة خلال دقيقة</span>
+            <span class="badge">🎁 مجاني بالكامل</span>
+            <span class="badge">📘 دليل شامل</span>
         </div>
     </section>
 
     <footer>
-        <span class="footer-logo">🍷 SUKUNA BOT</span>
-        <p>Sukuna Bot - WhatsApp Bot</p>
-        <p style="color: var(--text-gray); font-size: 0.9rem;">بوت واتساب متخصص في إدارة النقابات | تم الإنشاء 2023</p>
-        <p class="copyright">© 2026 جميع الحقوق محفوظة لـ سوكونا</p>
+        <div>🍷 <strong>𝐒𝐔𝐊𝐔𝐍𝐀 𝐁𝐎𝐓</strong> | Sukuna Bot - WhatsApp Bot</div>
+        <div>© 2026 جميع الحقوق محفوظة</div>
+        <div>بوت واتساب متخصص في إدارة النقابات | تم إنشاء البوت بتاريخ 2023</div>
     </footer>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        // Particles Background Configuration
-        particlesJS("particles-js", {
-            "particles": {
-                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#bc002d" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#bc002d", "opacity": 0.2, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "out_mode": "out" }
-            },
-            "interactivity": {
-                "events": { "onhover": { "enable": true, "mode": "repulse" } }
+<!-- Modal Component -->
+<div id="infoModal" class="modal"><div class="modal-content"><h3><i class="fas fa-skull"></i> معلومات</h3><p id="modalMessage"></p><button class="btn-primary" id="closeModal">اغلاق</button></div></div>
+
+<script>
+    // ---------- ANIMATED PARTICLES (Cursed Energy Aura) ----------
+    const canvas = document.getElementById('cursed-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    const PARTICLE_COUNT = 110;
+    for (let i=0; i<PARTICLE_COUNT; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 3 + 1,
+            alpha: Math.random() * 0.5 + 0.2,
+            speedX: (Math.random() - 0.5) * 0.4,
+            speedY: (Math.random() - 0.5) * 0.3,
+            color: `rgba(180, 20, 30, ${Math.random() * 0.6 + 0.2})`
+        });
+    }
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let p of particles) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ff0000';
+            ctx.fill();
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ---------- SCROLL REVEAL + COUNTER ANIMATION ----------
+    const reveals = document.querySelectorAll('.reveal');
+    const counterSpans = document.querySelectorAll('.count-num');
+    let counted = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                if (!counted && entry.target.closest('#hero')) {
+                    startCounters();
+                    counted = true;
+                }
             }
         });
+    }, { threshold: 0.2 });
+    reveals.forEach(el => observer.observe(el));
 
-        // Toggle Side Menu
-        function toggleMenu() {
-            document.getElementById('sideMenu').classList.toggle('active');
-        }
-
-        // Scroll Reveal Animations
-        ScrollReveal().reveal('.section-title', { delay: 200, origin: 'top', distance: '50px' });
-        ScrollReveal().reveal('.grid-item', { delay: 300, interval: 100, scale: 0.8 });
-        ScrollReveal().reveal('.glass-panel', { delay: 400, origin: 'bottom', distance: '50px' });
-        ScrollReveal().reveal('.law-box', { delay: 300, origin: 'right', distance: '100px', interval: 200 });
-
-        // Smooth Scroll for side menu
-        document.querySelectorAll('.side-menu a').forEach(anchor => {
-            anchor.addEventListener('click', function() {
-                toggleMenu();
-            });
+    function startCounters() {
+        counterSpans.forEach(span => {
+            const target = parseInt(span.getAttribute('data-target'));
+            if (isNaN(target)) return;
+            let current = 0;
+            const increment = target / 45;
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    span.innerText = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    span.innerText = target;
+                }
+            };
+            updateCounter();
         });
-    </script>
+    }
+
+    // ---------- Mobile Sidebar (off-canvas) ----------
+    const hamburger = document.getElementById('hamburger');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    function closeSidebar() {
+        mobileSidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+    function openSidebar() {
+        mobileSidebar.classList.add('active');
+        overlay.classList.add('active');
+    }
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (mobileSidebar.classList.contains('active')) closeSidebar();
+        else openSidebar();
+    });
+    overlay.addEventListener('click', closeSidebar);
+    document.querySelectorAll('.mobile-sidebar a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            closeSidebar();
+            const targetId = link.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // smooth scroll for desktop anchor links
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const target = document.getElementById(targetId);
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Buttons Actions
+    document.getElementById('trialBtn').addEventListener('click', () => window.open('https://wa.me/201012821832?text=أريد تجربة البوت', '_blank'));
+    document.getElementById('readMoreBtn').addEventListener('click', () => document.getElementById('aboutBot').scrollIntoView({ behavior: 'smooth' }));
+    document.getElementById('ctaStartBtn').addEventListener('click', () => window.open('https://wa.me/201012821832?text=ابدأ الآن', '_blank'));
+    document.getElementById('goToRulesBtn').addEventListener('click', () => document.getElementById('rules').scrollIntoView({ behavior: 'smooth' }));
+
+    // Modal functions
+    const modal = document.getElementById('infoModal');
+    const modalMsg = document.getElementById('modalMessage');
+    const closeModalBtn = document.getElementById('closeModal');
+    function showModal(msg) { modalMsg.innerText = msg; modal.classList.add('active'); }
+    closeModalBtn.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
+
+    // Cards Actions for knowledge grid (with monitor redirect to WhatsApp)
+    const cardActions = {
+        aboutBot: () => document.getElementById('aboutBot').scrollIntoView({ behavior: 'smooth' }),
+        features: () => document.getElementById('features').scrollIntoView({ behavior: 'smooth' }),
+        terms: () => document.getElementById('terms').scrollIntoView({ behavior: 'smooth' }),
+        contact: () => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }),
+        rules: () => document.getElementById('rules').scrollIntoView({ behavior: 'smooth' }),
+        founders: () => showModal('المؤسسون: فريق Sukuna التقني، نخبة من المطورين ومديري النقابات.'),
+        pr: () => showModal('لجنة العلاقات العامة: مسؤولة عن الإعلانات والشراكات والتواصل مع النقابات.'),
+        monitor: () => window.open('https://wa.me/96876378830', '_blank')  // redirect to the given number
+    };
+    document.querySelectorAll('.interactive-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const action = card.getAttribute('data-action');
+            if (action && cardActions[action]) cardActions[action]();
+            else if (card.innerText.includes('تعريف')) cardActions.aboutBot();
+            else if (card.innerText.includes('مميزات')) cardActions.features();
+            else if (card.innerText.includes('شروط')) cardActions.terms();
+            else if (card.innerText.includes('اتصل')) cardActions.contact();
+            else if (card.innerText.includes('قوانين')) cardActions.rules();
+            else showModal('هذه الخاصية قريباً 🔥');
+        });
+    });
+
+    // Force counters if hero visible on load
+    setTimeout(() => { if(window.scrollY < 100) startCounters(); }, 500);
+    // glitch random effect on main title
+    setInterval(() => {
+        const glitchEl = document.querySelector('.glitch-effect');
+        if(glitchEl) glitchEl.style.animation = 'none';
+        setTimeout(() => { if(glitchEl) glitchEl.style.animation = 'glitch 0.8s infinite alternate'; }, 10);
+    }, 3000);
+</script>
 </body>
 </html>
